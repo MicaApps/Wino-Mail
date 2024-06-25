@@ -1,6 +1,5 @@
 ﻿using System;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Wino.Core.Domain;
 using Wino.Core.Domain.Entities;
 using Wino.Core.Domain.Models.MailItem;
 
@@ -12,8 +11,6 @@ namespace Wino.Mail.ViewModels.Data
     public partial class MailItemViewModel(MailCopy mailCopy) : ObservableObject, IMailItem
     {
         public MailCopy MailCopy { get; private set; } = mailCopy;
-
-        public bool IsLocalDraft => !string.IsNullOrEmpty(DraftId) && DraftId.StartsWith(Constants.LocalDraftStartPrefix);
 
         public Guid UniqueId => ((IMailItem)MailCopy).UniqueId;
         public string ThreadId => ((IMailItem)MailCopy).ThreadId;
@@ -89,10 +86,6 @@ namespace Wino.Mail.ViewModels.Data
         {
             MailCopy = updatedMailItem;
 
-            // DEBUG
-            //if (updatedMailItem.AssignedAccount == null || updatedMailItem.AssignedFolder == null)
-            //    throw new Exception("Assigned account or folder is null.");
-
             OnPropertyChanged(nameof(IsRead));
             OnPropertyChanged(nameof(IsFocused));
             OnPropertyChanged(nameof(IsFlagged));
@@ -100,7 +93,6 @@ namespace Wino.Mail.ViewModels.Data
             OnPropertyChanged(nameof(DraftId));
             OnPropertyChanged(nameof(Subject));
             OnPropertyChanged(nameof(PreviewText));
-            OnPropertyChanged(nameof(IsLocalDraft));
         }
     }
 }

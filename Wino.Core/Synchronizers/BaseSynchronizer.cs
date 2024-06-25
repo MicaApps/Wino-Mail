@@ -148,6 +148,16 @@ namespace Wino.Core.Synchronizers
 
                 await synchronizationSemaphore.WaitAsync(activeSynchronizationCancellationToken);
 
+                // Let servers to finish their job. Sometimes the servers doesn't respond immediately.
+                // TODO: Outlook sends back the deleted Draft. Might be a bug in the graph API or in Wino.
+
+                var hasSendDraftRequest = batches.Any(a => a is BatchSendDraftRequestRequest);
+
+                if (hasSendDraftRequest && DelaySendOperationSynchronization())
+                {
+                    await Task.Delay(2000);
+                }
+
                 // Start the internal synchronization.
                 var synchronizationResult = await SynchronizeInternalAsync(options, activeSynchronizationCancellationToken).ConfigureAwait(false);
 
@@ -262,6 +272,9 @@ namespace Wino.Core.Synchronizers
                         case MailSynchronizerOperation.CreateDraft:
                             yield return CreateDraft((BatchCreateDraftRequest)item);
                             break;
+                        case MailSynchronizerOperation.Archive:
+                            yield return Archive((BatchArchiveRequest)item);
+                            break;
                     }
                 }
             };
@@ -305,6 +318,7 @@ namespace Wino.Core.Synchronizers
             return options;
         }
 
+        public virtual bool DelaySendOperationSynchronization() => false;
         public virtual IEnumerable<IRequestBundle<TBaseRequest>> Move(BatchMoveRequest request) => throw new NotSupportedException(string.Format(Translator.Exception_UnsupportedSynchronizerOperation, this.GetType()));
         public virtual IEnumerable<IRequestBundle<TBaseRequest>> ChangeFlag(BatchChangeFlagRequest request) => throw new NotSupportedException(string.Format(Translator.Exception_UnsupportedSynchronizerOperation, this.GetType()));
         public virtual IEnumerable<IRequestBundle<TBaseRequest>> MarkRead(BatchMarkReadRequest request) => throw new NotSupportedException(string.Format(Translator.Exception_UnsupportedSynchronizerOperation, this.GetType()));
@@ -313,6 +327,7 @@ namespace Wino.Core.Synchronizers
         public virtual IEnumerable<IRequestBundle<TBaseRequest>> MoveToFocused(BatchMoveToFocusedRequest request) => throw new NotSupportedException(string.Format(Translator.Exception_UnsupportedSynchronizerOperation, this.GetType()));
         public virtual IEnumerable<IRequestBundle<TBaseRequest>> CreateDraft(BatchCreateDraftRequest request) => throw new NotSupportedException(string.Format(Translator.Exception_UnsupportedSynchronizerOperation, this.GetType()));
         public virtual IEnumerable<IRequestBundle<TBaseRequest>> SendDraft(BatchSendDraftRequestRequest request) => throw new NotSupportedException(string.Format(Translator.Exception_UnsupportedSynchronizerOperation, this.GetType()));
+        public virtual IEnumerable<IRequestBundle<TBaseRequest>> Archive(BatchArchiveRequest request) => throw new NotSupportedException(string.Format(Translator.Exception_UnsupportedSynchronizerOperation, this.GetType()));
 
         /// <summary>
         /// Downloads a single missing message from synchronizer and saves it to given FileId from IMailItem.

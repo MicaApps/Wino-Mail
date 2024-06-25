@@ -14,7 +14,7 @@ namespace Wino.Core.Services
 
     public class DatabaseService : IDatabaseService
     {
-        private string DatabaseName => "Wino.db";
+        private string DatabaseName => "Wino172.db";
 
         private bool _isInitialized = false;
         private readonly IAppInitializerService _appInitializerService;
@@ -31,7 +31,7 @@ namespace Wino.Core.Services
             if (_isInitialized)
                 return;
 
-            var applicationData = _appInitializerService.GetApplicationDataFolder();
+            var applicationData = _appInitializerService.GetPublisherSharedFolder();
             var databaseFileName = Path.Combine(applicationData, DatabaseName);
 
             Connection = new SQLiteAsyncConnection(databaseFileName)
