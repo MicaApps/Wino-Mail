@@ -4,7 +4,7 @@ namespace Wino.Calendar.Services;
 
 public class CalendarAuthenticatorConfig : IAuthenticatorConfig
 {
-    public string OutlookAuthenticatorClientId => "b19c2035-d740-49ff-b297-de6ec561b208";
+    public string OutlookAuthenticatorClientId => "d26be8d1-9975-4654-aa42-35b398759196";
 
     public string[] OutlookScope => new string[]
     {

@@ -239,10 +239,8 @@
             Grid.Column="0"
             Padding="5,5,5,0"
             HorizontalAlignment="Stretch"
-            Background="{ThemeResource WinoContentZoneBackgroud}"
-            BorderBrush="{StaticResource CardStrokeColorDefaultBrush}"
-            BorderThickness="1"
-            CornerRadius="7">
+            Background="Transparent"
+            >
             <Grid x:Name="MailListGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

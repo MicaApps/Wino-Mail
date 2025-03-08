@@ -407,7 +407,15 @@
             PaneOpening="NavigationPaneOpening"
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
             SelectedItem="{x:Bind ViewModel.SelectedMenuItem, Mode=TwoWay}"
-            SelectionChanged="MenuSelectionChanged">
+           SelectionChanged="MenuSelectionChanged"
+            Background="#08FFFFFF">
+            <muxc:NavigationView.Resources>
+                <!--<Thickness x:Key="NavigationViewContentMargin">0,50,0,0</Thickness>-->
+                <SolidColorBrush x:Key="NavigationViewContentBackground"
+         Color="Transparent" />
+                <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush"
+         Color="Transparent" />
+            </muxc:NavigationView.Resources>
             <muxc:NavigationView.ContentTransitions>
                 <TransitionCollection>
                     <AddDeleteThemeTransition />
