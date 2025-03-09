@@ -158,9 +158,9 @@
         </Grid.RowDefinitions>
 
         <Border
-            Background="{ThemeResource WinoContentZoneBackgroud}"
+            Background="Transparent"
             BorderBrush="{StaticResource CardStrokeColorDefaultBrush}"
-            BorderThickness="1"
+            BorderThickness="0"
             CornerRadius="7">
             <Grid Margin="8">
                 <Grid.RowDefinitions>
@@ -409,9 +409,9 @@
 
         <Border
             Grid.Row="1"
-            Background="{ThemeResource WinoContentZoneBackgroud}"
+            Background="Transparent"
             BorderBrush="{StaticResource CardStrokeColorDefaultBrush}"
-            BorderThickness="1"
+            BorderThickness="0"
             CornerRadius="7">
             <Grid Margin="1" CornerRadius="7">
                 <Grid Background="White" Visibility="{x:Bind IsDarkEditor, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
