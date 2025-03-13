@@ -20,12 +20,6 @@ We're striving to create a UWP Mail client for Windows.
 
 ![image](https://github.com/MicaApps/Mail/assets/6630660/076a560a-0d83-4779-ad33-6c1fbfb5a390)
 
-
-
-## Roadmap
-
-Discover our [upcoming features](Roadmap.md).
-
 ## Environment 
 
 - Visual Studio 2022 17.13.2+
